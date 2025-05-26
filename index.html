@@ -21,6 +21,14 @@
         .hover-bounce:hover {
             animation: bounce 0.3s ease;
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            color: #4B5563; /* Matches text-gray-600 for consistency */
+            font-size: 14px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center min-h-screen p-4">
@@ -58,6 +66,11 @@
             <audio id="audio-player" autoplay class="hidden"></audio>
             <button onclick="restart()" class="bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 hover-bounce transition-all duration-300 text-lg">Restart</button>
         </div>
+
+        <!-- Footer -->
+        <footer class="fade-in">
+            © 2025 BabuL Kumar. All rights reserved.
+        </footer>
     </div>
 
     <script>
@@ -131,17 +144,5 @@
             audioPlayer.pause();
         }
     </script>
-    <footer style="
-  text-align: center;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #555;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #e0e0e0;
-">
-  Made with <span style="color: #e25555;">&#10084;&#65039;</span> by <strong style="color: #333;">BabuL Kumar</strong>
-</footer>
-
 </body>
 </html>
