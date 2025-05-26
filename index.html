@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveBanter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .hover-bounce:hover {
+            animation: bounce 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center min-h-screen p-4">
+    <div id="main-container" class="bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-xl shadow-2xl max-w-md w-full">
+        <!-- Language Selection -->
+        <div id="language-selection" class="text-center fade-in">
+            <h1 class="text-3xl font-extrabold mb-6 text-gray-800">Choose Your Language</h1>
+            <div class="flex justify-center gap-4">
+                <button onclick="selectLanguage('english')" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 hover-bounce transition-all duration-300 text-lg">English</button>
+                <button onclick="selectLanguage('hindi')" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 hover-bounce transition-all duration-300 text-lg">Hindi</button>
+            </div>
+        </div>
+
+        <!-- Gender Selection -->
+        <div id="gender-selection" class="hidden text-center fade-in">
+            <h1 class="text-3xl font-extrabold mb-6 text-gray-800">Select Your Gender</h1>
+            <div class="flex justify-center gap-4">
+                <button onclick="selectGender('male')" class="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 hover-bounce transition-all duration-300 text-lg">Male</button>
+                <button onclick="selectGender('female')" class="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 hover-bounce transition-all duration-300 text-lg">Female</button>
+            </div>
+        </div>
+
+        <!-- Love Question -->
+        <div id="love-question" class="hidden text-center fade-in">
+            <h1 id="love-question-text" class="text-3xl font-extrabold mb-6 text-gray-800">Ever Fallen in Love?</h1>
+            <div class="flex justify-center gap-4">
+                <button onclick="answerLove('yes')" class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 hover-bounce transition-all duration-300 text-lg">Yes</button>
+                <button onclick="answerLove('no')" class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 hover-bounce transition-all duration-300 text-lg">No</button>
+            </div>
+        </div>
+
+        <!-- Result Display -->
+        <div id="result" class="hidden text-center fade-in">
+            <p id="result-text" class="text-xl mb-6 text-gray-800 font-semibold"></p>
+            <audio id="audio-player" autoplay class="hidden"></audio>
+            <button onclick="restart()" class="bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 hover-bounce transition-all duration-300 text-lg">Restart</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedLanguage = '';
+        let selectedGender = '';
+
+        function selectLanguage(language) {
+            selectedLanguage = language;
+            document.getElementById('language-selection').classList.add('hidden');
+            document.getElementById('gender-selection').classList.remove('hidden');
+            // Update love question text based on language
+            const loveQuestionText = document.getElementById('love-question-text');
+            loveQuestionText.textContent = language === 'hindi' ? 'Kabhi Love Mein Pada Hai?' : 'Ever Fallen in Love?';
+        }
+
+        function selectGender(gender) {
+            selectedGender = gender;
+            document.getElementById('gender-selection').classList.add('hidden');
+            document.getElementById('love-question').classList.remove('hidden');
+        }
+
+        function answerLove(answer) {
+            const resultText = document.getElementById('result-text');
+            const audioPlayer = document.getElementById('audio-player');
+            let message = '';
+            let playAudio = false;
+
+            if (selectedLanguage === 'english') {
+                if (selectedGender === 'male') {
+                    message = answer === 'yes'
+                        ? "Oi lover boy, stop flirting with this dull website and go talk to your actual girlfriend. She’s probably wondering if you’ve been kidnapped by HTML!"
+                        : "Bro, your face looks like it lost a fight with gravity — and you think you deserve a girlfriend?";
+                } else {
+                    message = answer === 'yes'
+                        ? "Cheat on your lover, And give me a chance too, darling"
+                        : "So many good guys out there getting ignored while you're here wasting time? Tragic for humanity";
+                }
+            } else if (selectedLanguage === 'hindi') {
+                if (selectedGender === 'male') {
+                    message = answer === 'yes'
+                        ? "Saale jaake apni bandi se baat kar yha gaand marwane ke liye aaya hai chla jaa bsdk."
+                        : "Jhaant jaisi shakal pe enhe girlfriend chahiye bhaag yha se chutiya saala gaandwarwa";
+                } else {
+                    message = answer === 'yes'
+                        ? "Apne lover ko dhokha do, Aa mujhe bhi darling mauka do..."
+                        : "Single rehke itna drama mat kar, ek boyfriend bana le, dono milke life ko interesting banaoge.Option me mai bhi hu.";
+                    playAudio = answer === 'yes';
+                }
+            }
+
+            resultText.textContent = message;
+            if (playAudio) {
+                audioPlayer.src = "song.mp3"; // Assumes song.mp3 is in the same directory
+                audioPlayer.play().catch(error => console.log("Autoplay prevented:", error));
+            } else {
+                audioPlayer.src = "";
+                audioPlayer.pause();
+            }
+
+            document.getElementById('love-question').classList.add('hidden');
+            document.getElementById('result').classList.remove('hidden');
+        }
+
+        function restart() {
+            selectedLanguage = '';
+            selectedGender = '';
+            document.getElementById('result').classList.add('hidden');
+            document.getElementById('language-selection').classList.remove('hidden');
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.src = "";
+            audioPlayer.pause();
+        }
+    </script>
+</body>
+</html>
