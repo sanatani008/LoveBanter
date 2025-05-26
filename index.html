@@ -45,7 +45,7 @@
 
         <!-- Love Question -->
         <div id="love-question" class="hidden text-center fade-in">
-            <h1 id="love-question-text" class="text-3xl font-extrabold mb-6 text-gray-800">Ever Fallen in Love?</h1>
+            <h1 id="love-question-text" class="text-3xl font-extrabold mb-6 text-gray-800">Have You Ever Fallen in Love with Someone?</h1>
             <div class="flex justify-center gap-4">
                 <button onclick="answerLove('yes')" class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 hover-bounce transition-all duration-300 text-lg">Yes</button>
                 <button onclick="answerLove('no')" class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 hover-bounce transition-all duration-300 text-lg">No</button>
@@ -70,7 +70,7 @@
             document.getElementById('gender-selection').classList.remove('hidden');
             // Update love question text based on language
             const loveQuestionText = document.getElementById('love-question-text');
-            loveQuestionText.textContent = language === 'hindi' ? 'Kabhi Love Mein Pada Hai?' : 'Ever Fallen in Love?';
+            loveQuestionText.textContent = language === 'hindi' ? 'Kya Tumne Kabhi Kisi Se Pyaar Kiya Hai?' : 'Have You Ever Fallen in Love with Someone?';
         }
 
         function selectGender(gender) {
@@ -98,12 +98,12 @@
             } else if (selectedLanguage === 'hindi') {
                 if (selectedGender === 'male') {
                     message = answer === 'yes'
-                        ? "Saale jaake apni bandi se baat kar yha gaand marwane ke liye aaya hai chla jaa bsdk."
+                        ? "Saale jaake apni bandi se baat kar yha gaand marwane aaya hai kya bsdk"
                         : "Jhaant jaisi shakal pe enhe girlfriend chahiye bhaag yha se chutiya saala gaandwarwa";
                 } else {
                     message = answer === 'yes'
                         ? "Apne lover ko dhokha do, Aa mujhe bhi darling mauka do..."
-                        : "Single rehke itna drama mat kar, ek boyfriend bana le, dono milke life ko interesting banaoge.Option me mai bhi hu.";
+                        : "Single rehke itna drama mat kar, ek boyfriend bana le, dono milke life ko interesting banaoge.";
                     playAudio = answer === 'yes';
                 }
             }
