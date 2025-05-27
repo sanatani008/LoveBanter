@@ -25,9 +25,23 @@
             text-align: center;
             padding: 10px;
             font-family: Arial, sans-serif;
-            color: #4B5563; /* Matches text-gray-600 for consistency */
+            color: #F3F4F6;
             font-size: 14px;
-            margin-top: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+        }
+        body {
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        #contact-button {
+            text-align: center;
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
         }
     </style>
 </head>
@@ -66,12 +80,22 @@
             <audio id="audio-player" autoplay class="hidden"></audio>
             <button onclick="restart()" class="bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 hover-bounce transition-all duration-300 text-lg">Restart</button>
         </div>
-
-        <!-- Footer -->
-        <footer class="fade-in">
-            © 2025 BabuL Kumar. All rights reserved.
-        </footer>
     </div>
+
+    <!-- Contact Me Button -->
+    <div id="contact-button" class="hidden fade-in">
+        <button onclick="contactMe()" class="bg-yellow-600 text-white px-4 py-2 rounded-full hover:bg-yellow-700 hover-bounce transition-all duration-300 text-sm flex items-center justify-center mx-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Contact Me
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fade-in">
+        © 2025 BabuL Kumar. All rights reserved.
+    </footer>
 
     <script>
         let selectedLanguage = '';
@@ -94,6 +118,7 @@
 
         function answerLove(answer) {
             const resultText = document.getElementById('result-text');
+            const contactButton = document.getElementById('contact-button');
             const audioPlayer = document.getElementById('audio-player');
             let message = '';
             let playAudio = false;
@@ -103,21 +128,25 @@
                     message = answer === 'yes'
                         ? "Oi lover boy, stop flirting with this dull website and go talk to your actual girlfriend. She’s probably wondering if you’ve been kidnapped by HTML!"
                         : "Bro, your face looks like it lost a fight with gravity — and you think you deserve a girlfriend?";
+                    contactButton.classList.remove('hidden');
                 } else {
                     message = answer === 'yes'
                         ? "Cheat on your lover, And give me a chance too, darling"
                         : "So many good guys out there getting ignored while you're here wasting time? Tragic for humanity";
+                    contactButton.classList.add('hidden');
                 }
             } else if (selectedLanguage === 'hindi') {
                 if (selectedGender === 'male') {
                     message = answer === 'yes'
                         ? "Saale jaake apni bandi se baat kar yha gaand marwane aaya hai kya bsdk"
                         : "Jhaant jaisi shakal pe enhe girlfriend chahiye bhaag yha se chutiya saala gaandwarwa";
+                    contactButton.classList.remove('hidden');
                 } else {
                     message = answer === 'yes'
                         ? "Apne lover ko dhokha do, Aa mujhe bhi darling mauka do..."
-                        : "Single rehke itna drama mat kar, ek boyfriend bana le, dono milke life ko interesting banaoge.Option me mai bhi hu try kar sakti ho meri taraf se Haa hai.";
+                        : "Single rehke itna drama mat kar, ek boyfriend bana le, dono milke life ko interesting banaoge.";
                     playAudio = answer === 'yes';
+                    contactButton.classList.add('hidden');
                 }
             }
 
@@ -134,10 +163,17 @@
             document.getElementById('result').classList.remove('hidden');
         }
 
+        function contactMe() {
+            const resultText = document.getElementById('result-text');
+            const message = selectedLanguage === 'hindi' ? 'Chla Jaa Bsdk' : 'Just leave, jerk!';
+            resultText.textContent = message;
+        }
+
         function restart() {
             selectedLanguage = '';
             selectedGender = '';
             document.getElementById('result').classList.add('hidden');
+            document.getElementById('contact-button').classList.add('hidden');
             document.getElementById('language-selection').classList.remove('hidden');
             const audioPlayer = document.getElementById('audio-player');
             audioPlayer.src = "";
